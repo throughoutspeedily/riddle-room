@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riddle Room</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2vh 2vw;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 90vw;
+            max-height: 90vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .landing-container, .game-container {
+            display: none;
+        }
+        .active {
+            display: flex;
+        }
+        img.question-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        input[type="text"] {
+            padding: 1.5vh;
+            margin: 1vh 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            font-size: 2.5vh;
+        }
+        button {
+            padding: 1.5vh 2vw;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            font-size: 3vh;
+            width: 100%;
+            margin-top: 2vh;
+        }
+        button:disabled {
+            background-color: #ccc;
+        }
+        .level {
+            font-size: 4vh;
+            margin-bottom: 1vh;
+            font-weight: bold;
+        }
+        #level-title, .landing-title {
+            font-size: 6vh;
+            margin-bottom: 2vh;
+        }
+        .hint {
+            color: #555;
+            margin: 1vh 0;
+            font-size: 3vh;
+            font-style: italic;
+        }
+        #start-button {
+            background-color: #28a745;
+            font-size: 3vh;
+        }
+        @media (min-width: 768px) {
+            .landing-container, .game-container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .left, .right {
+                width: 50%;
+                padding: 1vh 2vw;
+            }
+            .left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .right {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .level, #level-title, .hint, input[type="text"], button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container landing-container active" id="landing-container">
+    <div class="left">
+        <img src="landing.jpg" alt="Landing Image" class="question-image">
+    </div>
+    <div class="right">
+        <div class="landing-title">A brain challenging game that we hope you can enjoy</div>
+        <div class="hint">You may use google to find the answer</div>
+        <div class="hint">Some questions might be tricky</div>
+        <div class="hint">Have fun!</div>
+        <button id="start-button">Start Game</button>
+    </div>
+</div>
+
+<div class="container game-container" id="game-container">
+    <div class="left">
+        <img id="question-image" class="question-image" src="image1.jpg" alt="Question Image">
+    </div>
+    <div class="right">
+        <div class="level" id="level-number">Level 1</div>
+        <div id="level-title">Judul Level 1</div>
+        <div class="hint" id="hint1">Hint 1: I might use the mirror for other use, let me think!</div>
+        <div class="hint" id="hint2">Hint 2: For example, to find the answer maybe?</div>
+        <input type="text" id="answer" placeholder="Enter your answer...">
+        <button id="submit">Submit</button>
+    </div>
+</div>
+
+<script>
+    const levels = [
+        {
+            title: "What's behind the mirror?",
+            image: "image1.jpg",
+            answer: "debox",
+            hint1: "I might use the mirror for other use, let me think!",
+            hint2: "For example, to find the answer maybe?"
+        },
+        {
+            title: "Isaac Newton & Steve Jobs",
+            image: "image2.jpg",
+            answer: "apple",
+            hint1: "Maybe they have something in common?",
+            hint2: "Yeah I'm sure they are!"
+        },
+        {
+            title: "Row & Columns",
+            image: "image3.jpg",
+            answer: "onlane",
+            hint1: "Indonesia, 14 February 2024",
+            hint2: "Column of the chosen one!"
+        },
+        {
+            title: "Templates",
+            image: "image4.jpg",
+            answer: "ipsum",
+            hint1: "No man is an island!",
+            hint2: "You ever used design templates before, right?"
+        },
+        {
+            title: "Level 5",
+            image: "image5.jpg",
+            answer: "lighter",
+            hint1: "7,15 - 20,25,16,5 - 12,9,7,8,20,5,18",
+            hint2: "You get it, right?"
+        },
+        {
+            title: "Sniper & Samurai",
+            image: "image6.jpg",
+            answer: "prepared",
+            hint1: "Why'd the sniper aim to that place anyway? The samurai isn't there!",
+            hint2: "Spoiler alert! The sniper wins"
+        },
+        {
+            title: "Isn't that Pink Panther",
+            image: "image7.jpg",
+            answer: "blackpink",
+            hint1: "Suddenly I wanna dance, urgh!",
+            hint2: "They're all beautiful!"
+        },
+        {
+            title: "What's that?",
+            image: "image8.jpg",
+            answer: "pokemon",
+            hint1: "Where's that thing come from?",
+            hint2: "Did she choose that thing?"
+        },
+        {
+            title: "Such magnificent tra!",
+            image: "image9.jpg",
+            answer: "asilanom",
+            hint1: "You know this picture right?",
+            hint2: "Wait... Do you really know this picture?"
+        },
+        {
+            title: "Augmented Reality is the future!",
+            image: "image10.jpg",
+            answer: "solar",
+            hint1: "What's that red dot in the keyboard? a not?",
+            hint2: "Okay Augmented Reality is cool!"
+        }
+    ];
+
+    let currentLevel = 0;
+
+    document.getElementById('start-button').addEventListener('click', function() {
+        document.getElementById('landing-container').classList.remove('active');
+        document.getElementById('landing-container').style.display = 'none';
+        document.getElementById('game-container').classList.add('active');
+        loadLevel(currentLevel);
+    });
+
+    document.getElementById('submit').addEventListener('click', function() {
+        checkAnswer();
+    });
+
+    document.getElementById('answer').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    });
+
+    function checkAnswer() {
+        const userAnswer = document.getElementById('answer').value.trim().toLowerCase();
+        if (userAnswer === levels[currentLevel].answer) {
+            currentLevel++;
+            if (currentLevel < levels.length) {
+                loadLevel(currentLevel);
+            } else {
+                document.getElementById('game-container').innerHTML = '<div class="level">Congratulations!</div><div class="question">You have completed all levels.</div>';
+            }
+        } else {
+            alert('Incorrect answer. Please try again.');
+        }
+    }
+
+    function loadLevel(level) {
+        document.getElementById('level-number').innerText = 'Level ' + (level + 1);
+        document.getElementById('level-title').innerText = levels[level].title;
+        document.getElementById('question-image').src = levels[level].image;
+        document.getElementById('hint1').innerText = 'Hint 1: ' + levels[level].hint1;
+        document.getElementById('hint2').innerText = 'Hint 2: ' + levels[level].hint2;
+        document.getElementById('answer').value = '';
+    }
+</script>
+
+</body>
+</html>
